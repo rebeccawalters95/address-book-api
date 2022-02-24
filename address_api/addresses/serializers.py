@@ -3,38 +3,27 @@ from .models import Address, User
 
 
 class RegisterSerializer(serializers.ModelSerializer):
+    """
+    We set sure that the fields are all serialized (nice JSON format) and that the password is write-only.
+    We also set a maximum and minimum length for the password to make the password is more robust.
+    """
 
-    password = serializers.CharField(max_length=255, min_length=6, write_only=True)
+    password = serializers.CharField(max_length=30, min_length=6, write_only=True)
 
     class Meta:
         model = User
         fields = ('email', 'first_name', 'last_name', 'date_joined', 'password')
 
     def create(self, validated_data):
-         return User.objects.create_user(**validated_data)
+        return User.objects.create_user(**validated_data)
 
 
-class AddressSerializer(serializers.HyperlinkedModelSerializer):
+class AddressSerializer(serializers.ModelSerializer):
+    """
+    We make sure that the fields associated with the address are all serialized (nice JSON format)
+    """
     class Meta:
         model = Address
         fields = ('id', 'address_line_1', 'address_line_2', 'city_or_town', 'country', 'postcode', 'user')
 
-# class UserSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = User
-#         fields = ('id', 'username', 'password', 'email', 'first_name', 'last_name')
-#         write_only_fields = ('password',)
-#         read_only_fields = ('id',)
-#
-#     def create(self, validated_data):
-#         user = User.objects.create(
-#             username=validated_data['username'],
-#             email=validated_data['email'],
-#             first_name=validated_data['first_name'],
-#             last_name=validated_data['last_name']
-#         )
-#
-#         user.set_password(validated_data['password'])
-#         user.save()
-#
-#         return user
+
