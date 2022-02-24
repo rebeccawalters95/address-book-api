@@ -25,6 +25,8 @@ SECRET_KEY = '7ivq7h#u$+x5v&+cf0av8&)n8bd8bd)vf7+_zu502e@$(*26z-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+AUTH_USER_MODEL = 'addresses.user'
+
 ALLOWED_HOSTS = []
 
 
@@ -38,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'addresses.apps.AddressesConfig'
+    'addresses.apps.AddressesConfig',
 ]
 
 MIDDLEWARE = [
@@ -120,3 +122,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
